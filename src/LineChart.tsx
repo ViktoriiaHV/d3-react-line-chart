@@ -110,6 +110,19 @@ export function LineChart({ data, color }: Props) {
     svg.append("g").attr("class", "main-grid").call(yGridLines);
     svg.append("g").attr("class", "main-grid").call(xGridLines);
 
+    // adding zoom 
+    let zoom = d3
+      .zoom()
+      .scaleExtent([1, 5])
+      .translateExtent([
+        [0, 0],
+        [width, height],
+      ])
+      .on("zoom", (e) => {
+        svg.attr("transform", e.transform);
+      });
+
+    svg.call(zoom as any);
   }, [data]);
 
   return (
